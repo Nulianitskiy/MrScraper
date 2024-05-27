@@ -22,7 +22,16 @@ require (
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
+	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
+	github.com/jackc/pgconn v1.14.3 // indirect
+	github.com/jackc/pgio v1.0.0 // indirect
+	github.com/jackc/pgpassfile v1.0.0 // indirect
+	github.com/jackc/pgproto3/v2 v2.3.3 // indirect
+	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
+	github.com/jackc/pgtype v1.14.0 // indirect
+	github.com/jackc/pgx/v4 v4.18.3 // indirect
 	github.com/jaytaylor/html2text v0.0.0-20200412013138-3577fbdbcff7 // indirect
+	github.com/jmoiron/sqlx v1.4.0 // indirect
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/levigross/exp-html v0.0.0-20120902181939-8df60c69a8f5 // indirect
 	github.com/mattn/go-runewidth v0.0.9 // indirect
@@ -35,6 +44,7 @@ require (
 	github.com/ssor/bom v0.0.0-20170718123548-6386211fdfcf // indirect
 	github.com/stretchr/testify v1.9.0 // indirect
 	github.com/temoto/robotstxt v1.1.2 // indirect
+	golang.org/x/crypto v0.23.0 // indirect
 	golang.org/x/net v0.25.0 // indirect
 	golang.org/x/text v0.15.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
