@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	scr := scrapers.NewHabrScraper()
+	scr := scrapers.NewSpringerOpenScraper()
 	_, err := scr.Scrap("microservices")
 	if err != nil {
 		log.Printf("ОШИБКА: ", err)
