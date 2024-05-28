@@ -3,7 +3,14 @@ version: '3.1'
 services:
   db:
     build: ./db
-    container_name: postgres
+    container_name: scraper-postgres
     restart: always
     ports:
-      - "5436:5432"
+      - "5435:5432"
+
+  scraper:
+    build: ./
+    container_name: scraper
+    restart: always
+    ports:
+      - "8080:8080"
