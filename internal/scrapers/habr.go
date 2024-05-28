@@ -1,7 +1,7 @@
 package scrapers
 
 import (
-	"MrScraper/model"
+	"MrScraper/internal/model"
 	"fmt"
 	"github.com/gocolly/colly"
 	"log"
@@ -16,7 +16,10 @@ func NewHabrScraper() *HabrScraper { return &HabrScraper{} }
 func (s HabrScraper) Scrap(theme string) ([]model.Article, error) {
 	var articles []model.Article
 
-	c := colly.NewCollector()
+	c := colly.NewCollector(
+		colly.AllowedDomains("habr.com"),
+		colly.UserAgent("user-agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"),
+	)
 
 	c.OnHTML(".tm-articles-list__item", func(e *colly.HTMLElement) {
 		title := strings.TrimSpace(e.ChildText("a.tm-title__link"))

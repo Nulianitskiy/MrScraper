@@ -1,8 +1,8 @@
 package scrapers
 
 import (
-	"MrScraper/model"
-	"MrScraper/utils"
+	"MrScraper/internal/model"
+	"MrScraper/internal/utils"
 	"fmt"
 	"github.com/gocolly/colly"
 	"log"
@@ -18,6 +18,7 @@ func (s SpringerOpenScraper) Scrap(theme string) ([]model.Article, error) {
 
 	c := colly.NewCollector(
 		colly.AllowedDomains("www.springeropen.com"),
+		colly.UserAgent("user-agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"),
 	)
 
 	c.OnHTML(".c-listing__content.u-mb-16", func(e *colly.HTMLElement) {
