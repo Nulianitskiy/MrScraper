@@ -14,8 +14,10 @@ func ExtractTextFromPDF(url string) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("не удалось создать временный файл: %w", err)
 	}
-	defer os.Remove(tmpFile.Name()) // Удаляем временный файл после завершения работы
-	defer tmpFile.Close()
+	defer func() {
+		tmpFile.Close()
+		os.Remove(tmpFile.Name())
+	}()
 
 	// Загружаем PDF по ссылке
 	resp, err := http.Get(url)
