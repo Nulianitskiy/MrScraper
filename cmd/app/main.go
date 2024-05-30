@@ -16,9 +16,9 @@ func main() {
 
 	router := gin.Default()
 
-	//router.Static("/pages", "./web/pages")
-	//router.Static("/js", "./web/js")
-	//router.LoadHTMLGlob("web/pages/*")
+	router.Static("/pages", "./web/pages")
+	router.Static("/js", "./web/js")
+	router.LoadHTMLGlob("web/pages/*")
 
 	routes.SetupRoutes(router)
 

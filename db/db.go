@@ -71,12 +71,12 @@ func (d *Database) InsertArticle(article model.Article) error {
 	return err
 }
 
-// GetArticles возвращает все статьи из базы данных
-func (d *Database) GetArticles() ([]model.Article, error) {
+// GetAllArticles возвращает список статей из базы данных
+func (d *Database) GetAllArticles() ([]model.Article, error) {
 	d.mutex.Lock()
 	defer d.mutex.Unlock()
 
-	rows, err := d.db.Query("SELECT title, url, author, abstract, content FROM articles")
+	rows, err := d.db.Query("SELECT id ,title, url, author, abstract FROM articles")
 	if err != nil {
 		return nil, err
 	}
@@ -85,7 +85,7 @@ func (d *Database) GetArticles() ([]model.Article, error) {
 	var articles []model.Article
 	for rows.Next() {
 		var article model.Article
-		err := rows.Scan(&article.Title, &article.Link, &article.Authors, &article.Annotation, &article.Text)
+		err := rows.Scan(&article.Id, &article.Title, &article.Link, &article.Authors, &article.Annotation)
 		if err != nil {
 			return nil, err
 		}
@@ -96,4 +96,17 @@ func (d *Database) GetArticles() ([]model.Article, error) {
 	}
 
 	return articles, nil
+}
+
+func (d *Database) GetArticleById(id int) (model.Article, error) {
+	d.mutex.Lock()
+	defer d.mutex.Unlock()
+
+	var article model.Article
+	err := d.db.Get(&article, "SELECT * FROM articles WHERE id = $1", id)
+	if err != nil {
+		return article, err
+	}
+
+	return article, nil
 }
