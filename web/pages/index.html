@@ -4,46 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scientific Articles</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .article-list {
-            list-style-type: none;
-            padding: 0;
-        }
-        .article-list li {
-            margin: 10px 0;
-            padding: 10px;
-            border: 1px solid #ccc;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="/styles/styles.css">
 </head>
 <body>
-<h1>Scientific Articles</h1>
-<ul id="articles" class="article-list"></ul>
+<div class="container">
+    <h1>Scientific Articles</h1>
+    <ul id="articles" class="article-list"></ul>
+</div>
 
-<script>
-    async function fetchArticles() {
-        const response = await fetch('/articles');
-        const articles = await response.json();
-        const articlesList = document.getElementById('articles');
-        articles.forEach(article => {
-            const listItem = document.createElement('li');
-            listItem.innerHTML = `
-                    <h2>${article.title}</h2>
-                    <p><strong>Authors:</strong> ${article.authors}</p>
-                    <p>${article.annotation}</p>
-                `;
-            listItem.addEventListener('click', () => {
-                window.location.href = `article?id=${article.id}`;
-            });
-            articlesList.appendChild(listItem);
-        });
-    }
-
-    fetchArticles();
-</script>
+<script src="/js/scripts.js"></script>
 </body>
 </html>

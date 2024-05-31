@@ -4,31 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Article</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-    </style>
+    <link rel="stylesheet" href="/styles/styles.css">
 </head>
 <body>
-<h1 id="title"></h1>
-<p><strong>Authors:</strong> <span id="authors"></span></p>
-<p id="annotation"></p>
-<div id="text"></div>
+<div class="container">
+    <h1 id="title"></h1>
+    <a id="link" href="">Ссылка на статью</a>
+    <p><strong>Authors:</strong> <span id="authors"></span></p>
+    <p id="annotation"></p>
+    <div id="text"></div>
+</div>
 
-<script>
-    async function fetchArticle() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get('id');
-        const response = await fetch(`/articles/${id}`);
-        const article = await response.json();
-        document.getElementById('title').textContent = article.title;
-        document.getElementById('authors').textContent = article.authors;
-        document.getElementById('annotation').textContent = article.annotation;
-        document.getElementById('text').textContent = article.text;
-    }
-
-    fetchArticle();
-</script>
+<script src="/js/scripts.js"></script>
 </body>
 </html>
