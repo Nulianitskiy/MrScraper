@@ -14,3 +14,15 @@ services:
     restart: always
     ports:
       - "8080:8080"
+    depends_on:
+      - db
+
+  bayes:
+
+    build: ./bayes
+    container_name: scraper-bayes
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
