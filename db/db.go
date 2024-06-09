@@ -52,7 +52,7 @@ func (d *Database) Close() error {
 	return d.db.Close()
 }
 
-func (d *Database) InsertArticle(article model.Article) error {
+func (d *Database) InsertArticle(article model.Article, theme string) error {
 	d.mutex.Lock()
 	defer d.mutex.Unlock()
 
@@ -66,8 +66,8 @@ func (d *Database) InsertArticle(article model.Article) error {
 		return fmt.Errorf("статья с названием %s уже существует в базе данных", article.Title)
 	}
 
-	_, err = d.db.Exec("INSERT INTO articles (title, url, author, abstract, content) VALUES ($1, $2, $3, $4, $5)",
-		article.Title, article.Link, article.Authors, article.Annotation, article.Text)
+	_, err = d.db.Exec("INSERT INTO articles (title, url, author, abstract, content, theme) VALUES ($1, $2, $3, $4, $5, $6)",
+		article.Title, article.Link, article.Authors, article.Annotation, article.Text, theme)
 	return err
 }
 
@@ -76,7 +76,7 @@ func (d *Database) GetAllArticles() ([]model.Article, error) {
 	d.mutex.Lock()
 	defer d.mutex.Unlock()
 
-	rows, err := d.db.Query("SELECT id ,title, url, author, abstract FROM articles")
+	rows, err := d.db.Query("SELECT id ,title, url, author, abstract, theme FROM articles")
 	if err != nil {
 		return nil, err
 	}
@@ -85,7 +85,7 @@ func (d *Database) GetAllArticles() ([]model.Article, error) {
 	var articles []model.Article
 	for rows.Next() {
 		var article model.Article
-		err := rows.Scan(&article.Id, &article.Title, &article.Link, &article.Authors, &article.Annotation)
+		err := rows.Scan(&article.Id, &article.Title, &article.Link, &article.Authors, &article.Annotation, &article.Theme)
 		if err != nil {
 			return nil, err
 		}

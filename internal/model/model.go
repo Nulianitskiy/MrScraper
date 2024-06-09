@@ -7,4 +7,5 @@ type Article struct {
 	Annotation string `db:"abstract" json:"annotation"`
 	Text       string `db:"content" json:"text,omitempty"`
 	Link       string `db:"url" json:"link"`
+	Theme      string `db:"theme" json:"theme,omitempty"`
 }

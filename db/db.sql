@@ -4,5 +4,6 @@ CREATE TABLE articles (
     url TEXT NOT NULL,
     author TEXT NOT NULL,
     abstract TEXT,
-    content TEXT NOT NULL
+    content TEXT NOT NULL,
+    theme TEXT
 );
