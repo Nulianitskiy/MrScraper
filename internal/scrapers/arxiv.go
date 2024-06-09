@@ -6,7 +6,10 @@ import (
 	"fmt"
 	"github.com/gocolly/colly"
 	"log"
+	"net"
+	"net/http"
 	"strings"
+	"time"
 )
 
 type ArxivScraper struct {
@@ -21,18 +24,15 @@ func (s ArxivScraper) Scrap(theme string) ([]model.Article, error) {
 
 	c := colly.NewCollector(
 		colly.AllowedDomains("arxiv.org"),
+		colly.UserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"),
 	)
 
-	userAgents := []string{
-		"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
-		"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36",
-	}
-	uaIndex := 0
-
-	c.OnRequest(func(r *colly.Request) {
-		r.Headers.Set("User-Agent", userAgents[uaIndex])
-		// Увеличиваем индекс для следующего запроса
-		uaIndex = (uaIndex + 1) % len(userAgents)
+	// Set a timeout for requests
+	c.WithTransport(&http.Transport{
+		DialContext: (&net.Dialer{
+			Timeout: 1 * time.Second,
+		}).DialContext,
+		TLSHandshakeTimeout: 1 * time.Second,
 	})
 
 	// Обработка каждого элемента статьи на странице поиска
@@ -89,7 +89,7 @@ func (s ArxivScraper) Scrap(theme string) ([]model.Article, error) {
 	})
 
 	// Формируем URL для поиска статей по теме
-	searchURL := fmt.Sprintf("https://arxiv.org/search/?query=%s&searchtype=all&abstracts=show&order=-announced_date_first&size=25", theme)
+	searchURL := fmt.Sprintf("https://arxiv.org/search/?query=%s&searchtype=all&abstracts=show&order=-announced_date_first&size=50", theme)
 
 	//c.OnScraped(func(r *colly.Response) {
 	//	for _, article := range articles {

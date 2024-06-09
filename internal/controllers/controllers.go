@@ -17,6 +17,10 @@ func ShowArticle(c *gin.Context) {
 	c.HTML(200, "article.html", nil)
 }
 
+func ShowCheck(c *gin.Context) {
+	c.HTML(200, "check.html", nil)
+}
+
 func UpdateNewArticles(c *gin.Context) {
 	theme := c.Query("theme")
 
@@ -27,7 +31,6 @@ func UpdateNewArticles(c *gin.Context) {
 	}
 
 	s := []scrapers.Scraper{
-		scrapers.NewHabrScraper(),
 		scrapers.NewArxScraper(),
 		scrapers.NewSpringerOpenScraper(),
 	}
@@ -45,7 +48,7 @@ func UpdateNewArticles(c *gin.Context) {
 				return
 			}
 			for _, article := range articles {
-				err := db.InsertArticle(article)
+				err := db.InsertArticle(article, theme)
 				if err != nil {
 					errors[i] = err
 					return
